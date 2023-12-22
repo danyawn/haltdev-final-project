@@ -47,44 +47,37 @@ include 'query/fetchpenerbit.php';
   <!-- =======================Content======================== -->
 
   <div class="p-4 m-auto w-75 h-auto mt-5 rounded-3 table-responsive card mb-5">
-    <h5 class="title" style="color:black;">Tambah Buku</h5>
-    <form class="" action="query/tambahbuku.php" method="post">
+    <h5 class="title" style="color:black;">Tambah Penerbit</h5>
+    <form class="" action="query/tambahpenerbit.php" method="post">
       <div class="mb-3">
-        <label for="id_buku" class="form-label">ID Buku</label>
-        <input type="text" required class="form-control" id="id_buku" name="id_buku">
+        <label for="id_penerbit" class="form-label">ID Penerbit</label>
+        <input type="text" required class="form-control" id="id_penerbit" name="id_penerbit">
       </div>
       <div class="mb-3">
-        <label for="kategori" class="form-label">Kategori</label>
-        <input type="text" required class="form-control" id="kategori" name="kategori">
+        <label for="email" class="form-label">E-mail</label>
+        <input type="email" required class="form-control" id="email" name="email">
       </div>
       <div class="mb-3">
-        <label for="nama_buku" class="form-label">Nama Buku</label>
-        <input type="text" required class="form-control" id="nama_buku" name="nama_buku">
+        <label for="tahun" class="form-label">Tahun</label>
+        <input type="number" required class="form-control" id="tahun" name="tahun">
       </div>
       <div class="mb-3">
-        <label for="harga" class="form-label">Harga</label>
-        <input type="number" required class="form-control" id="harga" name="harga">
+        <label for="nama_penerbit" class="form-label">Nama Penerbit</label>
+        <input type="text" required class="form-control" id="nama_penerbit" name="nama_penerbit">
       </div>
       <div class="mb-3">
-        <label for="stok" class="form-label">Stok</label>
-        <input type="number" required class="form-control" id="stok" name="stok">
+        <label for="alamat" class="form-label">Alamat</label>
+        <input type="text" required class="form-control" id="alamat" name="alamat">
       </div>
       <div class="mb-3">
-        <label for="penerbit" class="form-label">Penerbit</label>
-        <select class="form-select" id="penerbit" name="penerbit">
-          <?php
-          include '/query/fetchpenerbit.php';
-          if ($hasil_penerbit) {
-            foreach ($hasil_penerbit as $p) {
-              echo '<option value="' . $p['nama'] . '">' . $p['nama'] . '</option>';
-            }
-          } else {
-            echo '<option value="0">Tidak ada penerbit</option>';
-          }
-          ?>
-
-        </select>
+        <label for="kota" class="form-label">Kota</label>
+        <input type="text" required class="form-control" id="kota" name="kota">
       </div>
+      <div class="mb-3">
+        <label for="phone" class="form-label">No Handphone</label>
+        <input type="text" required class="form-control" id="phone" name="phone">
+      </div>
+      
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>

@@ -3,6 +3,7 @@
 
 <?php
 include 'query/fetchbuku.php';
+include 'query/fetchpenerbit.php';
 ?>
 
 <head>
@@ -14,7 +15,7 @@ include 'query/fetchbuku.php';
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 
-<body class="def-background">
+<body class="def-background mb-3">
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <a class="navbar-brand title" href="index.php">UNIBOOKSTORE</a>
@@ -34,8 +35,7 @@ include 'query/fetchbuku.php';
           </li>
         </ul>
         <form class="d-flex" role="search">
-          <input id="searchInput" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-
+          <input id="searchInput" class="form-control me-2" type="search" placeholder="Search Buku" aria-label="Search" onkeyup="searchBooks()">
         </form>
       </div>
     </div>
@@ -44,9 +44,12 @@ include 'query/fetchbuku.php';
 
   <!-- =======================Content======================== -->
 
-  <div class="grid gap-2 mt-5 w-75 m-auto h-auto flex-col-med">
+
+
+  <div class="grid gap-2 mt-5 w-75 m-auto h-auto flex-col-med card p-3 rounded-3">
+    <h4 class="text-center title">Daftar Buku</h4>
     <a href="tambah.php">
-      <button class="button-style">Tambah Buku</button>
+      <button class="btn btn-primary">Tambah Buku</button>
     </a>
     <div class=" rounded-3 table-responsive card">
       <table class="table table-striped rounded-5 table-bordered">
@@ -62,14 +65,14 @@ include 'query/fetchbuku.php';
 
           </tr>
         </thead>
-        <tbody>
+        <tbody id="tbodybuku">
           <?php if (count($hasil) === 0) : ?>
             <tr>
               <td colspan="7">Tidak ada buku</td>
             </tr>
           <?php else : ?>
             <?php foreach ($hasil as $b) : ?>
-              <tr>
+              <tr id="trbuku">
                 <td><?= $b['id'] ?></td>
                 <td><?= $b['kategori'] ?></td>
                 <td><?= $b['nama'] ?></td>
@@ -96,9 +99,62 @@ include 'query/fetchbuku.php';
   </div>
 
 
+  <div class="grid gap-2 mt-5 w-75 m-auto h-auto flex-col-med card p-3 rounded-3">
+    <h4 class="text-center title">Daftar Penerbit</h4>
+    <a href="tambahpenerbit.php">
+      <button class="btn btn-primary" style="width:fit-content;">Tambah Penerbit</button>
+    </a>
+    <div class=" rounded-3 table-responsive card">
+      <table class="table table-striped rounded-5 table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">ID Penerbit</th>
+            <th scope="col">Email</th>
+            <th scope="col">Tahun</th>
+            <th scope="col">Nama</th>
+            <th scope="col">Alamat</th>
+            <th scope="col">Kota</th>
+            <th scope="col">Nomor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php if (count($hasil_penerbit) === 0) : ?>
+            <tr>
+              <td colspan="7">Tidak ada buku</td>
+            </tr>
+          <?php else : ?>
+            <?php foreach ($hasil_penerbit as $b) : ?>
+              <tr>
+                <td><?= $b['id_penerbit'] ?></td>
+                <td><?= $b['email'] ?></td>
+                <td><?= $b['tahun'] ?></td>
+                <td><?= $b['nama'] ?></td>
+                <td><?= $b['alamat'] ?></td>
+                <td><?= $b['kota'] ?></td>
+                <td><?= $b['phone'] ?></td>
+                <td>
+                  <div class="btn-group" role="group" aria-label="Basic example">
+                    <a href="editpenerbit.php?id_penerbit=<?= $b['id_penerbit'] ?>">
+                      <button type="button" class="btn btn-primary">Edit</button>
+                    </a>
+                    <a href="query/deletepenerbit.php?id_penerbit=<?= $b['id_penerbit'] ?>">
+                      <button type="button" class="btn btn-danger">Delete</button>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            <?php endforeach; ?>
+          <?php endif; ?>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+
   <script>
     const searchInput = document.getElementById('searchInput');
-    const tableRows = document.querySelectorAll('tbody tr');
+    const tableRows = document.querySelectorAll('#tbodybuku tr');
 
     searchInput.addEventListener('input', function() {
       const searchValue = this.value.toLowerCase();

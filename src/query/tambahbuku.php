@@ -8,13 +8,20 @@ $harga = $_POST['harga'];
 $stok = $_POST['stok'];
 $penerbit = $_POST['penerbit'];
 
-$query = "INSERT INTO buku (id, kategori, nama, harga, stok, penerbit) VALUES ('$id_buku', '$kategori', '$nama_buku', '$harga', '$stok', '$penerbit')";
+$query = "SELECT id FROM buku WHERE id = '$id_buku'";
 $result = mysqli_query($conn, $query);
 
-if ($result) {
-  echo "<script>alert('Data berhasil ditambahkan!');window.location.href='../admin.php';</script>";
+if (mysqli_num_rows($result) > 0) {
+  echo "<script>alert('ID buku sudah ada dalam database!');window.location.href='../tambah.php';</script>";
 } else {
-  echo "<script>alert('Data gagal ditambahkan!');window.location.href='../admin.php';</script>";
+  $query = "INSERT INTO buku (id, kategori, nama, harga, stok, penerbit) VALUES ('$id_buku', '$kategori', '$nama_buku', '$harga', '$stok', '$penerbit')";
+  $result = mysqli_query($conn, $query);
+
+  if ($result) {
+    echo "<script>alert('Data Buku berhasil ditambahkan!');window.location.href='../admin.php';</script>";
+  } else {
+    echo "<script>alert('Data Buku gagal ditambahkan!');window.location.href='../admin.php';</script>";
+  }
 }
 
 mysqli_close($conn);
